@@ -366,15 +366,13 @@ window.addEventListener("resize", function () {
 
 /* ================= FORMULÁRIO CONTATO (N8N) ================= */
 
-const formContato = document.getElementById("form-contato");
-
-if (formContato) {
-  formContato.addEventListener("submit", async (e) => {
+document.querySelectorAll(".contact-form").forEach((form) => {
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const nome = document.querySelector('[name="nome"]').value;
-    const email = document.querySelector('[name="email"]').value;
-    const mensagem = document.querySelector('[name="mensagem"]').value;
+    const nome = form.querySelector('[name="nome"]').value;
+    const email = form.querySelector('[name="email"]').value;
+    const mensagem = form.querySelector('[name="mensagem"]').value;
 
     try {
       await fetch("https://crysleite.app.n8n.cloud/webhook-test/form-contato", {
@@ -385,17 +383,18 @@ if (formContato) {
         body: JSON.stringify({
           nome,
           email,
-          mensagem
+          mensagem,
+          origem: window.location.pathname
         })
       });
 
       alert("Mensagem enviada 🚀");
-      formContato.reset();
+      form.reset();
 
     } catch (error) {
       alert("Erro ao enviar. Tente novamente.");
       console.error(error);
     }
   });
-}
+});
 
