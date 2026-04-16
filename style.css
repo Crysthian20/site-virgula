@@ -1533,6 +1533,7 @@ p {
     transform: translateX(-50%) scale(1);
   }
 
+@media (max-width: 900px) {
   /* FORMULÁRIO */
   .footer-form {
     grid-column: 1;
@@ -1564,7 +1565,7 @@ p {
   .form-checkbox {
     font-size: 0.8rem;
   }
-
+}
 }
 
 /* ================= RODAPÉ ================= */
