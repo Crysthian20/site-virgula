@@ -75,7 +75,7 @@
     />
 
     <!-- CSS -->
-    <link rel="stylesheet" href="style.css?v=2">
+    <link rel="stylesheet" href="style.css?v=3">
 </head>
 
 <a href="https://wa.me/15991283339?text=Ol%C3%A1%21%20Vim%20pelo%20site%20da%20Ag%C3%AAncia%20V%C3%ADrgula%20e%20quero%20entender%20melhor%20como%20voc%C3%AAs%20podem%20ajudar%20meu%20neg%C3%B3cio." 
@@ -540,56 +540,58 @@
     <div class="fechamento-branco">
         <div class="footer-container">
 
-            <!-- LADO ESQUERDO - INFORMAÇÕES -->
-            <div class="footer-info">
-                <div class="footer-col">
-                    <h4>Sede</h4>
-                    <p>
-                        Rua Coronel Arruda Botelho, <br>
-                        62 - Boituva, SP</p>
-                </div>
+            <!-- LADO ESQUERDO - Mapa -->
+            <div>
+               
+                <div class="mapa-container">
+  <img src="assets/mapa.png" alt="Mapa">
 
-                <div class="footer-col">
-                    <h4>Espaço InovaBra Habitat</h4>
-                    <p>
-                        Avenida Angélica, 2529 - 4º Andar <br>
-                        Bela Vista - São Paulo
-                    </p>
-                </div>
+  <!-- Boituva -->
+  <a href="https://www.google.com/maps?q=Rua+Coronel+Arruda+Botelho,+62,+Boituva+SP"
+     target="_blank" 
+     class="pin pin-boituva">
+    <img src="assets/pino-loc.png" alt="">
 
-                <div class="footer-col">
-                    <h4>Base Coworking</h4>
-                    <p>
-                        Avenida Francisco Matarazzo, 1705<br>
-                        Portão B1 - São Paulo
-                    </p>
+    <div class="pin-card">
+      <strong>Sede</strong><br>
+      Rua Coronel Arruda Botelho, 62
+      Boituva, SP
+    </div>
+  </a>
+
+  <!-- São Paulo 1 -->
+  <a href="https://www.google.com/maps?q=Avenida+Angélica,+2529,+São+Paulo"
+     target="_blank" 
+     class="pin pin-sp1">
+    <img src="assets/pino-loc.png" alt="">
+
+    <div class="pin-card">
+      <strong>Espaço InovaBra Habitat</strong><br>
+      Avenida Angélica, 2529 4º Andar 
+      Bela Vista - São Paulo
+    </div>
+  </a>
+
+  <!-- São Paulo 2 -->
+  <a href="https://www.google.com/maps?q=Avenida+Francisco+Matarazzo,+1705,+São+Paulo"
+     target="_blank" 
+     class="pin pin-sp2">
+    <img src="assets/pino-loc.png" alt="">
+
+    <div class="pin-card">
+      <strong>Base Coworking</strong><br>
+      Avenida Francisco Matarazzo, 
+      1705, Portão B1 - São Paulo
+    </div>
+  </a>
+
                 </div>
             </div>
 
-            <!-- SOCIAIS -->
-            <div class="footer-social">
-                <a href="https://www.instagram.com/virgula.agencia"
-                   target="_blank"
-                   rel="noopener noreferrer"
-                   aria-label="Instagram">
-                    <i class="fa-brands fa-instagram"></i></a>
-
-                <a href="https://www.facebook.com/profile.php?id=61578731516573"
-                   target="_blank"
-                   rel="noopener noreferrer"
-                   aria-label="Facebook">
-                    <i class="fa-brands fa-facebook-f"></i></a>
-
-                <a href="https://www.linkedin.com/company/agência-vírgula"
-                   target="_blank"
-                   rel="noopener noreferrer"
-                   aria-label="LinkedIn">
-                   <i class="fa-brands fa-linkedin-in"></i></a>
-            </div>
 
             <!-- LADO DIREITO - FORMULÁRIO -->
             <div class="footer-form">
-    <h3>Entre em contato</h3>
+    <h3 class="footer-title">Entre em contato</h3>
     <form class="contact-form" id="form-home">
         <input type="text" name="nome" placeholder="Seu nome completo" required>
         <input type="email" name="email" placeholder="Melhor e-mail" required>
@@ -614,7 +616,7 @@
   <div class="footer-divider"></div>
 
   <div class="footer-logo">
-    <a href="#sobre" class="logo-subir">
+    <a href="index.html#contato" class="logo-subir">
     <img src="assets/logo.png" alt="Vírgula">
     <span class="texto-subir">SUBIR</span>
     </a>
