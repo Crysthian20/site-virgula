@@ -1173,6 +1173,38 @@ p {
 
 }
 
+/* ================= COOKIE ================= */
+
+@media (max-width: 900px) {
+
+    .cookie-banner {
+        padding: 20px 0;
+    }
+
+    .cookie-container {
+        flex-direction: column; /* empilha */
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        gap: 20px;
+        padding: 0 20px;
+    }
+
+    .cookie-container p {
+        font-size: 0.8rem;
+        max-width: 100%;
+        line-height: 1.5;
+    }
+
+    .cookie-container button {
+        width: 100%; /* botão ocupa tudo */
+        max-width: 300px;
+        padding: 14px 20px;
+        font-size: 0.9rem;
+        
+    }
+}
+
 /* ================= TOPO BRANCO — MOBILE IGUAL DESKTOP ================= */
 @media (max-width: 900px) {
 
