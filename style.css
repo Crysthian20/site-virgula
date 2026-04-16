@@ -1435,65 +1435,106 @@ p {
     font-size: 1.1rem;
   }
 }
+
 /* ================= FOOTER - MOBILE ================= */
 
 @media (max-width: 900px) {
 
+  /* GRID GERAL */
   .footer-container {
-    grid-template-columns: 1fr 1fr;
-    gap: 40px 20px;
-    padding: 0 20px;
-    align-items: start;
-  }
-
-  .footer-info {
-    gap: 20px;
-    display: flex;
-    flex-direction: column;
-    grid-column: 1;
-    grid-row: 1;
+    grid-template-columns: 1fr;
+    gap: 40px;
     padding-left: 20px;
+    padding-right: 20px;
   }
 
-  .footer-social {
-    display: flex;
-    gap: 18px;
-    grid-column: 1;
-    grid-row: 2;
-    justify-content: flex-start;
-    align-self: start;
-    margin-top: 10px;
-    padding-left: 20px;
+  /* MAPA */
+  .mapa-container {
+    width: 100vw;
+  margin-left: -20px;
+  margin-right: -20px;
+  max-width: none;
+
+  border-radius: 0; /* opcional: tira borda pra ficar edge-to-edge */
   }
 
-  .footer-col {
-    font-size: 0.9rem;
-    padding-bottom: 0;
-    border-bottom: none;
+  .mapa-container img {
+    border-radius: 16px;
+    
   }
 
+  /* PINS */
+  .pin {
+    width: 50px;
+  }
+
+  /* POSIÇÕES (ajuste fino se precisar depois) */
+  .pin-boituva {
+    top: 36%;
+    left: 29%;
+  }
+
+  .pin-sp1 {
+    top: 45%;
+    left: 59%;
+  }
+
+  .pin-sp2 {
+    top: 50%;
+    left: 54%;
+  }
+
+  /* CARD (tooltip) */
+  .pin-card {
+    width: 180px;
+    font-size: 12px;
+    padding: 10px 12px;
+  }
+
+  /* mobile não tem hover direito */
+  .pin:hover .pin-card {
+    opacity: 0;
+  }
+
+  .pin:active .pin-card {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+  }
+
+  /* FORMULÁRIO */
   .footer-form {
-    grid-column: 2;
-    grid-row: 1 / 3;
+    grid-column: 1;
+    grid-row: auto;
+    max-width: 100%;
     margin-top: 0;
+    gap: 20px;
   }
 
-  .footer-form h3 {
-    font-size: 1rem;
+  /* TÍTULOS */
+  .footer-title {
+    font-size: 1.2rem;
   }
 
+  /* INPUTS */
   .contact-form input,
   .contact-form textarea {
-    font-size: 0.85rem;
-    padding: 12px 14px;
+    font-size: 0.9rem;
+    padding: 10px 14px;
   }
 
+  /* BOTÃO */
   .form-btn {
-    padding: 12px 28px;
-    font-size: 0.85rem;
+    padding: 14px;
+    font-size: 0.95rem;
+  }
+
+  /* CHECKBOX */
+  .form-checkbox {
+    font-size: 0.8rem;
   }
 
 }
+
 /* ================= RODAPÉ ================= */
 
 @media (max-width: 900px) {
