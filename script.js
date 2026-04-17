@@ -375,7 +375,7 @@ document.querySelectorAll(".contact-form").forEach((form) => {
     const mensagem = form.querySelector('[name="mensagem"]').value;
 
     try {
-      await fetch("https://crysleite.app.n8n.cloud/webhook-test/form-contato", {
+      await fetch("https://crysleite.app.n8n.cloud/webhook/form-contato", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
