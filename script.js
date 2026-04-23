@@ -567,26 +567,43 @@ function removeLoading() {
 
 /* ================= CHATBOT - N8N ================= */
 
-
-
 async function sendToN8N(message) {
+  showLoading();
+
+  const startTime = Date.now();
+
   try {
-    const response = await fetch("https://crysleite.app.n8n.cloud/webhook-test/chat-virgulinha", {
+    const response = await fetch("https://crysleite.app.n8n.cloud/webhook-teste/chat-virgulinha", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        message: message
+        message: message,
+        userAgent: navigator.userAgent,
+        url: window.location.href,
+        userId: localStorage.getItem("chatUserId") || createUserId()
       })
     });
 
     const data = await response.json();
 
+    const endTime = Date.now();
+    const responseTime = endTime - startTime;
+
+    removeLoading();
     addMessage(data.reply, "bot");
 
   } catch (error) {
     console.error(error);
+    removeLoading();
     addMessage("Erro ao conectar com o assistente 😢", "bot");
   }
+
+  function createUserId() {
+  const id = "user_" + Math.random().toString(36).substr(2, 9);
+  localStorage.setItem("chatUserId", id);
+  return id;
+}
+
 }
