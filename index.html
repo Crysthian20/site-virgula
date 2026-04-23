@@ -78,14 +78,17 @@
     <link rel="stylesheet" href="style.css?v=3">
 </head>
 
+<!--
 <a href="https://wa.me/15991283339?text=Ol%C3%A1%21%20Vim%20pelo%20site%20da%20Ag%C3%AAncia%20V%C3%ADrgula%20e%20quero%20entender%20melhor%20como%20voc%C3%AAs%20podem%20ajudar%20meu%20neg%C3%B3cio." 
    class="whatsapp-float" 
    target="_blank" 
    aria-label="Fale conosco no WhatsApp">
    
    <img src="assets/wpp.png" alt="WhatsApp">
-        
+       
 </a>
+--> 
+
 
 <body>
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
@@ -627,6 +630,64 @@
     </p>
   </div>
 </footer>
+
+<!-- ================= CHATBOT ================= -->
+<!-- Botão flutuante -->
+<div class="chat-toggle" id="chatToggle" onclick="toggleChat()">
+ <img src="assets/chatbot/virgulinha.png" alt="Abrir chat">
+</div>
+
+<!-- Container do Chat -->
+<div class="chat-container" id="chat">
+  
+    <div class="minimize-handle" onclick="toggleMinimize()">
+      <img src="assets/button-minimize.png" alt="Minimizar">
+    </div>
+
+  <div class="chat-header">
+    
+    <div class="avatar-big">
+      <img src="assets/chatbot/virgulinha2.png">
+    </div>
+
+    <div class="chat-header-content">
+      <h3>Virgulinha</h3>
+      <span>Online</span>
+    </div>
+
+    <div class="chat-header-actions">
+      <span onclick="toggleMenu()">⋮</span>
+      
+      <div class="chat-menu" id="chatMenu">
+        <div onclick="restartChat()">Início</div>
+      </div>
+    </div>
+    
+  </div> <div class="chat-body" id="chatBody" data-lenis-prevent>
+    <div class="message bot">
+       Olá! Eu sou o <strong>Virgulinha</strong>, assistente da <strong>Agência Vírgula.</strong> 👋
+      <br><br>Estou aqui para te informar sobre dúvidas, serviços e muito mais!<br><br>
+      Como posso te ajudar hoje? 😊
+    </div>
+
+    <div class="quick-actions">
+      <button onclick="sendQuick('Serviços')">Serviços</button>
+      <button onclick="sendQuick('Orçamento')">Orçamento</button>
+      <button onclick="sendQuick('Contato')">Contato</button>
+    </div>
+  </div>
+
+  <!-- Input -->
+  <div class="chat-footer">
+    <input type="text" id="userInput" placeholder="Digite uma mensagem..." onkeypress="enviarComEnter(event)">
+    <button onclick="sendMessage()">➤</button>
+  </div>
+
+<div class="powered-by">
+    Produced by Vírgula
+  </div>
+
+</div>
 
 <!-- JS -->
 <script src="script.js"></script>

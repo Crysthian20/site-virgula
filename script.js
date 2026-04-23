@@ -398,3 +398,195 @@ document.querySelectorAll(".contact-form").forEach((form) => {
   });
 });
 
+/* ================= CHATBOT ================= */
+
+// Alternar abertura do chat
+function toggleChat() {
+  const chat = document.getElementById("chat");
+  const chatToggle = document.getElementById("chatToggle");
+
+  if (chat.style.display === "flex") {
+    chat.style.display = "none";
+    chatToggle.style.display = "flex"; // Mostra o avatar novamente
+  } else {
+    chat.style.display = "flex";
+    chatToggle.style.display = "none"; // Esconde o avatar para não ficar por cima
+  }
+}
+
+// Fechar o chat pelo botão superior (traço)
+function toggleMinimize() {
+  const chat = document.getElementById("chat");
+  const chatToggle = document.getElementById("chatToggle");
+  const hero = document.getElementById("hero");
+  
+  chat.style.display = "none"; // Esconde o chat
+  
+  // Só traz o avatar de volta se o usuário já tiver rolado para baixo da Hero
+  if (hero && window.scrollY > hero.offsetHeight - 100) {
+    chatToggle.style.display = "flex"; 
+  }
+}
+
+// Enviar mensagem digitada
+function sendMessage() {
+  const input = document.getElementById("userInput");
+  const text = input.value.trim();
+
+  if (!text) return;
+
+  addMessage(text, "user");
+  input.value = "";
+
+  sendToN8N(text); // 👈 aqui
+}
+
+// NOVA FUNÇÃO: Permite enviar a mensagem apertando a tecla Enter
+function enviarComEnter(event) {
+  if (event.key === "Enter") {
+    event.preventDefault(); // Evita que a página recarregue
+    sendMessage(); // Chama a função de enviar a mensagem
+  }
+}
+
+// Botões rápidos
+function sendQuick(text) {
+  addMessage(text, "user");
+  sendToN8N(text); // 👈 aqui
+}
+
+// Adicionar mensagem no chat
+function addMessage(text, type) {
+  const chatBody = document.getElementById("chatBody");
+
+  const msg = document.createElement("div");
+  msg.classList.add("message", type);
+  
+  if (type === "bot") {
+  msg.innerHTML = text;
+} else {
+  msg.textContent = text;
+}
+
+  chatBody.appendChild(msg);
+
+  // Scroll automático
+  chatBody.scrollTop = chatBody.scrollHeight;
+}
+
+/* ================= MOSTRAR BOTÃO APÓS HERO ================= */
+window.addEventListener("DOMContentLoaded", () => {
+  const chatToggle = document.getElementById("chatToggle");
+  const hero = document.getElementById("hero");
+  const chat = document.getElementById("chat"); // Referência do chat
+
+  if (!chatToggle || !hero) return;
+
+  // Começa escondido
+  chatToggle.style.display = "none";
+
+  window.addEventListener("scroll", () => {
+    const heroHeight = hero.offsetHeight;
+
+    // Só mostra o botão do avatar se passar da Hero E o chat estiver fechado
+    if (window.scrollY > heroHeight - 100 && chat.style.display !== "flex") {
+      chatToggle.style.display = "flex";
+    } else {
+      chatToggle.style.display = "none";
+    }
+  });
+});
+
+/* ================= MENU DE OPÇÕES (TRÊS PONTINHOS) ================= */
+
+// Abre e fecha o menu
+function toggleMenu() {
+  const menu = document.getElementById("chatMenu");
+  menu.classList.toggle("show");
+}
+
+// Fechar o menu automaticamente se o usuário clicar fora dele
+document.addEventListener("click", function(event) {
+  const menu = document.getElementById("chatMenu");
+  const actions = document.querySelector(".chat-header-actions");
+  
+  // Se o menu estiver aberto e o clique não foi nos três pontinhos...
+  if (menu && menu.classList.contains("show") && !actions.contains(event.target)) {
+    menu.classList.remove("show");
+  }
+});
+
+// Ação de clicar no botão "Início"
+function restartChat() {
+  // 1. Esconde o menu
+  document.getElementById("chatMenu").classList.remove("show");
+  
+  // 2. Manda a mensagem "Início" como se fosse o usuário
+  addMessage("Início", "user");
+  
+  // 3. O Bot responde com a mensagem principal e os botões
+  setTimeout(() => {
+    // Adiciona o texto de boas-vindas
+    const msgInicial = `Olá! Eu sou o <strong>Virgulinha</strong>, assistente da <strong>Agência Vírgula.</strong> 👋<br><br>Estou aqui para te informar sobre dúvidas, serviços e muito mais!<br><br>Como posso te ajudar hoje? 😊`;
+    addMessage(msgInicial, "bot");
+
+    // 4. Recria e adiciona os botões amarelos de atalho
+    const chatBody = document.getElementById("chatBody");
+    const botoesDiv = document.createElement("div");
+    botoesDiv.classList.add("quick-actions");
+    botoesDiv.innerHTML = `
+      <button onclick="sendQuick('Serviços')">Serviços</button>
+      <button onclick="sendQuick('Orçamento')">Orçamento</button>
+      <button onclick="sendQuick('Contato')">Contato</button>
+    `;
+    
+    chatBody.appendChild(botoesDiv);
+    
+    // Desce o scroll para garantir que os botões apareçam na tela
+    chatBody.scrollTop = chatBody.scrollHeight; 
+
+  }, 600);
+}
+
+let loadingMsg = null;
+
+function showLoading() {
+  loadingMsg = document.createElement("div");
+  loadingMsg.classList.add("message", "bot");
+  loadingMsg.innerHTML = "Digitando...";
+  
+  document.getElementById("chatBody").appendChild(loadingMsg);
+}
+
+function removeLoading() {
+  if (loadingMsg) {
+    loadingMsg.remove();
+    loadingMsg = null;
+  }
+}
+
+/* ================= CHATBOT - N8N ================= */
+
+
+
+async function sendToN8N(message) {
+  try {
+    const response = await fetch("https://crysleite.app.n8n.cloud/webhook-test/chat-virgulinha", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        message: message
+      })
+    });
+
+    const data = await response.json();
+
+    addMessage(data.reply, "bot");
+
+  } catch (error) {
+    console.error(error);
+    addMessage("Erro ao conectar com o assistente 😢", "bot");
+  }
+}

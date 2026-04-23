@@ -1397,7 +1397,6 @@ p {
     
   }
 
-
   .clientes-branco {
     padding: 60px 0 40px;
     border-radius: 0 0 40px 40px;
@@ -1533,6 +1532,7 @@ p {
     transform: translateX(-50%) scale(1);
   }
 
+/* ================= FORMULÁRIO ================= */
 @media (max-width: 900px) {
   /* FORMULÁRIO */
   .footer-form {
@@ -1566,6 +1566,47 @@ p {
     font-size: 0.8rem;
   }
 }
+}
+
+/* ================= TABLET (iPad e similares) ================= */
+@media (min-width: 901px) and (max-width: 1200px) {
+
+  /* FORMULÁRIO */
+  .footer-form {
+    grid-column: 2;
+    grid-row: auto;
+    max-width: 100%;
+    margin-top: 0;
+    gap: 24px;
+  }
+
+  /* TÍTULO */
+  .footer-title {
+    font-size: 1.4rem;
+  }
+
+  /* INPUTS */
+  .contact-form input,
+  .contact-form textarea {
+    font-size: 1rem;
+    padding: 12px 16px;
+  }
+
+  /* TEXTAREA */
+  .contact-form textarea {
+    min-height: 120px;
+  }
+
+  /* BOTÃO */
+  .form-btn {
+    padding: 16px;
+    font-size: 1rem;
+  }
+
+  /* CHECKBOX */
+  .form-checkbox {
+    font-size: 0.9rem;
+  }
 }
 
 /* ================= RODAPÉ ================= */
@@ -1694,4 +1735,339 @@ p {
   .whatsapp-float {
     bottom: calc(16px + env(safe-area-inset-bottom));
   }
+}
+
+/* ================= CHATBOT - VIRGULINHA ================= */
+.chat-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  cursor: pointer;
+  z-index: 999;
+  background: none;
+  box-shadow: none;
+  padding: 0;
+}
+
+
+.chat-toggle img {
+  width: 150px; /* ajusta o tamanho aqui */
+  height: auto;
+  display: block;
+
+  transition: transform 0.2s ease;
+
+}
+
+.chat-toggle:hover img {
+  transform: scale(1.1);
+}
+
+.chat-container {
+  position: fixed;
+  bottom: 30px; /* Diminui a distância do rodapé (antes era 80px), descendo mais o chat */
+  right: 20px;
+  width: 410px;
+  max-width: 90%;
+  height: 570px; /* Aumenta a altura da janela */
+  background: #fafafa;
+  border-radius: 20px;
+  display: none;
+  flex-direction: column;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.11);
+  z-index: 9999;
+}
+
+/* HEADER MODERNO */
+.chat-header {
+  position: relative;
+  height: 90px;
+  background: linear-gradient(135deg, #000000, #000000);
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  color: white;
+}
+
+/* ================= BOTÃO DE MINIMIZAR (IMAGEM) ================= */
+.minimize-handle {
+  position: absolute;
+  top: -10px; /* Cola a imagem no teto do chat */
+  left: 50%;
+  transform: translateX(-50%); /* Centraliza perfeitamente */
+  cursor: pointer;
+  z-index: 10;
+  transition: transform 0.2s ease;
+}
+
+/* Efeito de aumentar um pouquinho quando passa o mouse */
+.minimize-handle:hover {
+  transform: translateX(-50%) scale(1.05); 
+}
+
+/* Tamanho da imagem */
+.minimize-handle img {
+  width: 155px; /* Você pode aumentar ou diminuir esse valor para ajustar o tamanho da aba */
+  height: auto;
+  display: block;
+}
+
+
+/* FUNDO COM FORMAS */
+.chat-header::before {
+  content: "";
+  position: absolute;
+  right: -40px;
+  top: 10px;
+  width: 200px;
+  height: 80px;
+  background: rgba(255, 255, 255, 0.111);
+  border-radius: 50px;
+}
+
+.chat-header::after {
+  content: "";
+  position: absolute;
+  right: 60px;
+  top: 30px;
+  width: 120px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.107);
+  border-radius: 50px;
+}
+
+/* AVATAR GRANDE (ESTILO CORTADO) */
+.avatar-big {
+  position: absolute;
+  left: 0; /* Puxa o avatar totalmente para a esquerda, tirando o espaço preto */
+  top: 0;
+  width: 90px;
+  height: 90px; /* Mesma altura do header para alinhar perfeitamente */
+  border-top-left-radius: 20px; /* Faz o fundo branco acompanhar a curva do header preto */
+  overflow: hidden; 
+  z-index: 2
+}
+
+.avatar-big img {
+ width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: bottom; /* Alinha o avatar pela base, evitando que ele "voe" */
+}
+
+/* TEXTO */
+.chat-header-content {
+  margin-left: 90px;
+  z-index: 2;
+}
+
+.chat-header-content h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.chat-header-content span {
+  font-size: 13px;
+  opacity: 0.8;
+  font-style: italic;
+}
+
+/* AÇÕES DIREITA */
+.chat-header-actions {
+  margin-left: auto;
+  display: flex;
+  gap: 12px;
+  z-index: 2;
+}
+
+.chat-header-actions span {
+  cursor: pointer;
+  font-size: 18px;
+  opacity: 0.8;
+  transition: 0.2s;
+}
+
+.-chat-headeractions span:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* ANIMAÇÃO DE ABERTURA */
+.chat-container {
+  animation: fadeInUp 0.3s ease;
+}
+
+@keyframes fadeInUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* MODO MINIMIZADO */
+.chat-container.minimized {
+  height: 70px;
+}
+
+.chat-container.minimized .chat-body,
+.chat-container.minimized .chat-footer {
+  display: none;
+}
+
+.chat-body {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+  
+}
+
+.message {
+  background: white;
+  padding: 10px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  position: relative;
+}
+
+.message.bot {
+  background: #ffffff;
+  border: 1px solid #cccccc; /* Adiciona a borda cinza clara */
+  margin-top: 25px;
+}
+
+/* Cria o nome "Virgulinha:" em cima das mensagens do bot */
+.message.bot::before {
+  content: "Virgulinha:";
+  position: absolute;
+  top: -22px; /* Joga o texto para cima, fora da bolha branca */
+  left: 5px; /* Alinha levemente com a borda da mensagem */
+  font-size: 13px;
+  font-weight: bold;
+  color: #8a8a8a; /* Cor cinza igual à da referência */
+}
+
+.quick-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.quick-actions button {
+  background: #ffd600;
+  color: white;
+  border: none;
+  padding: 8px 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.chat-footer {
+  display: flex;
+  padding: 10px;
+  border-top: 1px solid #ddd;
+}
+
+.chat-footer input {
+  flex: 1;
+  padding: 8px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+}
+
+.chat-footer button {
+  margin-left: 8px;
+  background: #ffd600;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px; /* Define a largura fixa */
+  height: 40px; /* Altura exatamente igual à largura */
+  display: flex; /* Usado para centralizar o ícone perfeitamente */
+  align-items: center; /* Centraliza na vertical */
+  justify-content: center; /* Centraliza na horizontal */
+  cursor: pointer;
+  padding: 0; /* Removemos o padding antigo para não deformar o botão */
+
+  font-size: 18px; 
+  padding: 0; 
+  padding-left: 3px; /* Empurra a seta levemente para a direita */
+
+}
+
+/* ================= ASSINATURA ================= */
+.powered-by {
+  text-align: center;
+  font-size: 11px;
+  color: #b3b3b3; /* Cor cinza clara */
+  padding-bottom: 10px;
+}
+
+/* ================= MENSAGEM DO USUÁRIO ================= */
+.message.user {
+  background: #ffd600; /* Fundo amarelo da Vírgula */
+  color: #ffffff; 
+  border: none; /* Tira a bordinha cinza, caso tenha herdado */
+  margin-left: auto; /* Empurra a mensagem totalmente para a direita */
+  margin-right: 0;
+  max-width: 80%; /* Evita que a mensagem encoste do outro lado da tela */
+  border-radius: 20px; /* Arredonda todos os cantos */
+  border-bottom-right-radius: 5px; /* Deixa a pontinha inferior direita mais reta (estilo balão de fala) */
+  text-align: right; /* Alinha o texto dentro da caixa para a direita */
+}
+
+/* ================= AJUSTE GERAL DE MENSAGENS ================= */
+.message {
+  background: white;
+  padding: 10px 15px; /* Aumentei um pouco o padding lateral para a bolha ficar mais elegante */
+  border-radius: 12px;
+  margin-bottom: 15px; /* Aumentei a margem para separar melhor as mensagens */
+  font-size: 14px;
+  position: relative;
+  width: fit-content; /* Faz a bolha abraçar o texto em vez de esticar até o fim da tela */
+}
+
+/* ================= MENU DOS TRÊS PONTINHOS ================= */
+.chat-header-actions {
+  position: relative; /* Ajuda a ancorar o menu logo abaixo dos pontinhos */
+}
+
+.chat-menu {
+  display: none; /* Começa escondido */
+  position: absolute;
+  top: 30px;
+  right: 0;
+  background: white;
+  color: #333333;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  overflow: hidden;
+  z-index: 100;
+  min-width: 120px;
+}
+
+.chat-menu.show {
+  display: block; /* Aparece quando o JS mandar */
+}
+
+.chat-menu div {
+  padding: 12px 15px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.chat-menu div:hover {
+  background: #f4f4f4; /* Corzinha quando passa o mouse */
 }
