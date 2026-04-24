@@ -593,7 +593,7 @@ console.log("RESPOSTA BRUTA:", text);
     const responseTime = endTime - startTime;
 
     removeLoading();
-    addMessage(data.reply, "bot");
+    addMessage(text, "bot");
 
   } catch (error) {
     console.error(error);
