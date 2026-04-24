@@ -586,14 +586,33 @@ async function sendToN8N(message) {
       })
     });
 
-  const text = await response.text();
-console.log("RESPOSTA BRUTA:", text);
+    const raw = await response.text();
+    console.log("RESPOSTA BRUTA:", raw);
+
+    if (!response.ok) {
+      throw new Error(`N8N HTTP ${response.status}: ${raw}`);
+    }
+
+    let data = null;
+    try {
+      data = JSON.parse(raw);
+    } catch (_) {
+      data = null;
+    }
+
+    const textFromData =
+      (data && typeof data === "object" && (data.reply || data.message || data.text || data.output)) || null;
+
+    const botMessageRaw = typeof textFromData === "string" ? textFromData : raw;
+    const botMessage = /<\/?[a-z][\s\S]*>/i.test(botMessageRaw)
+      ? botMessageRaw
+      : botMessageRaw.replace(/\n/g, "<br>");
 
     const endTime = Date.now();
     const responseTime = endTime - startTime;
 
     removeLoading();
-    addMessage(text, "bot");
+    addMessage(botMessage, "bot");
 
   } catch (error) {
     console.error(error);
@@ -602,9 +621,9 @@ console.log("RESPOSTA BRUTA:", text);
   }
 
   function createUserId() {
-  const id = "user_" + Math.random().toString(36).substr(2, 9);
-  localStorage.setItem("chatUserId", id);
-  return id;
-}
+    const id = "user_" + Math.random().toString(36).substr(2, 9);
+    localStorage.setItem("chatUserId", id);
+    return id;
+  }
 
 }
