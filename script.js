@@ -573,7 +573,7 @@ async function sendToN8N(message) {
   const startTime = Date.now();
 
   try {
-    const response = await fetch("https://crysleite.app.n8n.cloud/webhook/chat-virgulinha", {
+    const response = await fetch("https://primary-production-714c.up.railway.app/webhook/chat-virgulinha", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
