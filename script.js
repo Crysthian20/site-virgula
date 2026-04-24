@@ -582,7 +582,7 @@ async function sendToN8N(message) {
         message: message,
         userAgent: navigator.userAgent,
         url: window.location.href,
-        userId: localStorage.getItem("chatUserId") || createUserId()
+        sessionId: localStorage.getItem("chatUserId") || createUserId()
       })
     });
 
