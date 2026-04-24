@@ -573,7 +573,7 @@ async function sendToN8N(message) {
   const startTime = Date.now();
 
   try {
-    const response = await fetch("https://primary-production-714c.up.railway.app/webhook/2489e605-0735-4d60-bf0e-f94860d689a5/chat", {
+    const response = await fetch("https://primary-production-714c.up.railway.app/webhook-test/chat-virgulinha", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
