@@ -586,7 +586,8 @@ async function sendToN8N(message) {
       })
     });
 
-    const data = await response.json();
+  const text = await response.text();
+console.log("RESPOSTA BRUTA:", text);
 
     const endTime = Date.now();
     const responseTime = endTime - startTime;
