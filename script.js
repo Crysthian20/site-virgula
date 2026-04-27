@@ -610,21 +610,19 @@ async function sendToN8N(message) {
       data = null;
     }
 
-    const textFromData =
-      (data && typeof data === "object" && (data.reply || data.message || data.text || data.output)) || null;
-
+    // Busca o texto nos campos possíveis de retorno do n8n
+    const textFromData = (data && typeof data === "object" && (data.reply || data.message || data.text || data.output)) || null;
     const botMessageRaw = typeof textFromData === "string" ? textFromData : raw;
 
-    const botMessage = /<\/?[a-z][\s\S]*>/i.test(botMessageRaw)
-      ? botMessageRaw
-      : botMessageRaw.replace(/\n/g, "<br>");
+    const botMessage = botMessageRaw.replace(/\n/g, "<br>");
 
     const endTime = Date.now();
     const responseTime = endTime - startTime;
-
     console.log("Tempo de resposta (ms):", responseTime);
 
     removeLoading();
+    
+    // Chama a função de exibir na tela
     addMessage(botMessage, "bot");
 
   } catch (error) {
@@ -632,4 +630,18 @@ async function sendToN8N(message) {
     removeLoading();
     addMessage("Erro ao conectar com o assistente 😢", "bot");
   }
+}
+
+
+function addMessage(text, side) {
+  const chatContainer = document.getElementById("chat-container"); // Ajuste para o ID do seu container
+  const msgElement = document.createElement("div");
+  
+  msgElement.className = `message ${side}-message`; // Ajuste para suas classes CSS
+  
+  // O segredo para o <br> e <b> funcionarem é o innerHTML:
+  msgElement.innerHTML = text; 
+  
+  chatContainer.appendChild(msgElement);
+  chatContainer.scrollTop = chatContainer.scrollHeight;
 }
