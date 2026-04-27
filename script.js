@@ -565,6 +565,16 @@ function removeLoading() {
   }
 }
 
+// ================= SESSION FIX =================
+let sessionId = localStorage.getItem("chatUserId");
+
+if (!sessionId) {
+  sessionId = "user_" + Math.random().toString(36).substring(2, 12);
+  localStorage.setItem("chatUserId", sessionId);
+}
+
+console.log("SESSION ID:", sessionId);
+
 /* ================= CHATBOT - N8N ================= */
 
 async function sendToN8N(message) {
@@ -582,7 +592,7 @@ async function sendToN8N(message) {
         message: message,
         userAgent: navigator.userAgent,
         url: window.location.href,
-        sessionId: localStorage.getItem("chatUserId") || createUserId()
+        sessionId: sessionId // ✅ agora fixo
       })
     });
 
@@ -604,12 +614,15 @@ async function sendToN8N(message) {
       (data && typeof data === "object" && (data.reply || data.message || data.text || data.output)) || null;
 
     const botMessageRaw = typeof textFromData === "string" ? textFromData : raw;
+
     const botMessage = /<\/?[a-z][\s\S]*>/i.test(botMessageRaw)
       ? botMessageRaw
       : botMessageRaw.replace(/\n/g, "<br>");
 
     const endTime = Date.now();
     const responseTime = endTime - startTime;
+
+    console.log("Tempo de resposta (ms):", responseTime);
 
     removeLoading();
     addMessage(botMessage, "bot");
@@ -619,11 +632,4 @@ async function sendToN8N(message) {
     removeLoading();
     addMessage("Erro ao conectar com o assistente 😢", "bot");
   }
-
-  function createUserId() {
-    const id = "user_" + Math.random().toString(36).substr(2, 9);
-    localStorage.setItem("chatUserId", id);
-    return id;
-  }
-
 }
