@@ -443,9 +443,10 @@ function sendMessage() {
 
 // NOVA FUNÇÃO: Permite enviar a mensagem apertando a tecla Enter
 function enviarComEnter(event) {
-  if (event.key === "Enter") {
-    event.preventDefault(); // Evita que a página recarregue
-    sendMessage(); // Chama a função de enviar a mensagem
+  // Se apertar Enter E não estiver segurando o Shift
+  if (event.key === "Enter" && !event.shiftKey) {
+    event.preventDefault(); // Trava a quebra de linha
+    sendMessage(); // Envia a mensagem
   }
 }
 
