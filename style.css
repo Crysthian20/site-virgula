@@ -2105,43 +2105,59 @@ p {
     bottom: 0 !important;
     right: 0 !important;
     left: 0 !important;
-    border-radius: 0 !important; /* Remove as bordas arredondadas da janela */
+    border-radius: 0 !important; 
     margin: 0 !important;
   }
 
-  /* 1. AUMENTA O CABEÇALHO */
   .chat-header {
     border-top-left-radius: 0 !important;
     border-top-right-radius: 0 !important;
-    height: 100px !important; /* Aumenta a altura do cabeçalho (padrão devia ser 90px) */
-    /* Respiro para a câmera (notch) um pouco maior para acomodar a nova altura */
+    height: 110px !important; 
     padding-top: max(20px, env(safe-area-inset-top)) !important; 
   }
 
-  /* 2. AUMENTA O AVATAR PARA ACOMPANHAR O CABEÇALHO */
   .avatar-big {
-    border-top-left-radius: 0 !important;
-    width: 100px !important; /* Mesma largura da nova altura */
-    height: 100px !important; /* Mesma altura do cabeçalho para encaixar perfeitamente */
+    border-top-left-radius: 0 !important; 
+    width: 110px !important; 
+    height: 110px !important; 
   }
 
-  /* 3. EMPURRA O TEXTO PARA NÃO FICAR EM CIMA DO AVATAR NOVO */
   .chat-header-content {
-    margin-left: 90px !important; /* Dá um respiro entre o avatar maior e os textos */
+    margin-left: 106px !important; 
+    /* AJUSTE NOVO: Puxa o bloco de texto (Nome e Online) um pouquinho para cima */
+    margin-top: -10px !important; 
   }
 
-  /* 4. AUMENTA O TAMANHO DAS FONTES NO HEADER */
   .chat-header-content h3 {
-    font-size: 20px !important; /* Deixa o nome mais destacado */
-    margin-bottom: 2px !important; /* Dá um leve espaço entre o título e o "Online" */
+    font-size: 22px !important; 
+    margin-bottom: 2px !important; 
   }
 
   .chat-header-content span {
-    font-size: 15px !important; /* Aumenta a palavra "Online" */
+    font-size: 15px !important; 
   }
 
   .minimize-handle {
-    top: -5px !important; /* Desci um pouco mais a setinha para não colar no notch da Apple */
+    top: -6px !important; 
+  }
+
+  /* ================= NOVOS AJUSTES: FONTES DO CHAT ================= */
+  
+  /* Aumenta a fonte do texto dentro dos balões de conversa */
+  .message {
+    font-size: 16px !important; /* O padrão do PC é 14px */
+  }
+
+  /* Aumenta um pouquinho o nome "Virgulinha:" que fica em cima do balão branco */
+  .message.bot::before {
+    font-size: 14px !important; 
+    top: -24px !important; /* Ajuste para não encavalar no balão */
+  }
+
+  /* Aumenta a fonte e o tamanho dos botões amarelos de opções */
+  .quick-actions button {
+    font-size: 14px !important; /* O padrão do PC é 12px */
+    padding: 10px 14px !important; /* Deixa o botão um pouco mais "gordinho" para facilitar o clique no celular */
   }
 }
 
