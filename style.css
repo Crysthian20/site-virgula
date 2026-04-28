@@ -2109,21 +2109,39 @@ p {
     margin: 0 !important;
   }
 
+  /* 1. AUMENTA O CABEÇALHO */
   .chat-header {
     border-top-left-radius: 0 !important;
     border-top-right-radius: 0 !important;
-    /* Adiciona um respiro extra no topo para evitar que o "notch" (câmera) dos celulares corte o conteúdo */
-    padding-top: max(10px, env(safe-area-inset-top)); 
+    height: 100px !important; /* Aumenta a altura do cabeçalho (padrão devia ser 90px) */
+    /* Respiro para a câmera (notch) um pouco maior para acomodar a nova altura */
+    padding-top: max(20px, env(safe-area-inset-top)) !important; 
   }
 
+  /* 2. AUMENTA O AVATAR PARA ACOMPANHAR O CABEÇALHO */
   .avatar-big {
-    border-top-left-radius: 0 !important; /* Remove a curva do avatar para alinhar com o header reto */
+    border-top-left-radius: 0 !important;
+    width: 100px !important; /* Mesma largura da nova altura */
+    height: 100px !important; /* Mesma altura do cabeçalho para encaixar perfeitamente */
+  }
+
+  /* 3. EMPURRA O TEXTO PARA NÃO FICAR EM CIMA DO AVATAR NOVO */
+  .chat-header-content {
+    margin-left: 115px !important; /* Dá um respiro entre o avatar maior e os textos */
+  }
+
+  /* 4. AUMENTA O TAMANHO DAS FONTES NO HEADER */
+  .chat-header-content h3 {
+    font-size: 20px !important; /* Deixa o nome mais destacado */
+    margin-bottom: 2px !important; /* Dá um leve espaço entre o título e o "Online" */
+  }
+
+  .chat-header-content span {
+    font-size: 15px !important; /* Aumenta a palavra "Online" */
   }
 
   .minimize-handle {
-    /* Como a janela agora encosta no teto da tela, descemos o botão de minimizar 
-       para que ele não fique cortado ou escondido fora do visor */
-    top: 5px !important; 
+    top: 0px !important; /* Desci um pouco mais a setinha para não colar no notch da Apple */
   }
 }
 
