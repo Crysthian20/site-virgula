@@ -2112,24 +2112,24 @@ p {
   .chat-header {
     border-top-left-radius: 0 !important;
     border-top-right-radius: 0 !important;
-    height: 110px !important; 
+    height: 105px !important; 
     padding-top: max(20px, env(safe-area-inset-top)) !important; 
   }
 
   .avatar-big {
     border-top-left-radius: 0 !important; 
-    width: 110px !important; 
-    height: 110px !important; 
+    width: 105px !important; 
+    height: 105px !important; 
   }
 
   .chat-header-content {
-    margin-left: 106px !important; 
+    margin-left: 95px !important; 
     margin-top: -10px !important; 
-  }
+  }          
 
   .chat-header-content h3 { font-size: 22px !important; margin-bottom: 2px !important; }
-  .chat-header-content span { font-size: 15px !important; }
-  .minimize-handle { top: -6px !important; }
+  .chat-header-content span { font-size: 13px !important; }
+  .minimize-handle { top: -7px !important; }
 
   /* Fontes e botões Mobile */
   .message { font-size: 16px !important; }
