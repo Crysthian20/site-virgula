@@ -2127,7 +2127,7 @@ p {
 
   /* 3. EMPURRA O TEXTO PARA NÃO FICAR EM CIMA DO AVATAR NOVO */
   .chat-header-content {
-    margin-left: 115px !important; /* Dá um respiro entre o avatar maior e os textos */
+    margin-left: 90px !important; /* Dá um respiro entre o avatar maior e os textos */
   }
 
   /* 4. AUMENTA O TAMANHO DAS FONTES NO HEADER */
@@ -2141,7 +2141,7 @@ p {
   }
 
   .minimize-handle {
-    top: 0px !important; /* Desci um pouco mais a setinha para não colar no notch da Apple */
+    top: -5px !important; /* Desci um pouco mais a setinha para não colar no notch da Apple */
   }
 }
 
