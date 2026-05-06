@@ -515,7 +515,7 @@ function sendQuick(text) {
   addMessage(text, "user");
 
   // ================= ATIVAR MOOVEON =================
-  if (text === "MooveOn - 2026") {
+  if (text.toLowerCase().includes("mooveon")) {                       
     mooveonFlow.ativo = true;
     mooveonFlow.step = "nome";
     mooveonFlow.nome = null;
