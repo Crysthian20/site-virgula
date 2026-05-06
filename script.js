@@ -472,7 +472,7 @@ function sendMessage() {
       }
 
       // ENVIO PARA N8N (EVENTO)
-      fetch("https://primary-production-714c.up.railway.app/webhook-test/chat-mooveon", {
+      fetch("https://primary-production-714c.up.railway.app/webhook/chat-mooveon", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
