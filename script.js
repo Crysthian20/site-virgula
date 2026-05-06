@@ -407,26 +407,32 @@ function toggleChat() {
 
   if (chat.style.display === "flex") {
     chat.style.display = "none";
-    chatToggle.style.display = "flex"; // Mostra o avatar novamente
+    chatToggle.style.display = "flex";
   } else {
     chat.style.display = "flex";
-    chatToggle.style.display = "none"; // Esconde o avatar para não ficar por cima
+    chatToggle.style.display = "none";
   }
 }
 
-// Fechar o chat pelo botão superior (traço)
+// Fechar o chat
 function toggleMinimize() {
   const chat = document.getElementById("chat");
   const chatToggle = document.getElementById("chatToggle");
   const hero = document.getElementById("hero");
   
-  chat.style.display = "none"; // Esconde o chat
+  chat.style.display = "none";
   
-  // Só traz o avatar de volta se o usuário já tiver rolado para baixo da Hero
   if (hero && window.scrollY > hero.offsetHeight - 100) {
     chatToggle.style.display = "flex"; 
   }
 }
+
+// ================= MOOVEON FLOW =================
+let mooveonFlow = {
+  ativo: false,
+  step: null,
+  nome: null
+};
 
 // Enviar mensagem digitada
 function sendMessage() {
@@ -438,25 +444,93 @@ function sendMessage() {
   addMessage(text, "user");
   input.value = "";
 
-  sendToN8N(text); // 👈 aqui
+  // ================= MOOVEON INTERCEPT =================
+  if (mooveonFlow.ativo) {
+
+    if (text.toLowerCase() === "sair") {
+      mooveonFlow.ativo = false;
+      mooveonFlow.step = null;
+      mooveonFlow.nome = null;
+
+      addMessage("Você saiu da experiência do MooveOn 🙂", "bot");
+      return;
+    }
+
+    if (mooveonFlow.step === "nome") {
+      mooveonFlow.nome = text;
+      mooveonFlow.step = "email";
+
+      addMessage(`Boa, ${text}! 😄<br><br>Agora me manda seu melhor e-mail pra liberar seu brinde 🎁`, "bot");
+      return;
+    }
+
+    if (mooveonFlow.step === "email") {
+
+      if (!text.includes("@")) {
+        addMessage("Hmm... isso não parece um e-mail válido 🤔<br>Tenta novamente:", "bot");
+        return;
+      }
+
+      // ENVIO PARA N8N (EVENTO)
+      fetch("https://primary-production-714c.up.railway.app/webhook-test/chat-mooveon", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          nome: mooveonFlow.nome,
+          email: text,
+          origem: "mooveon2026",
+          sessionId: sessionId
+        })
+      });
+
+      addMessage(`Perfeito! 🎉<br><br>
+      Você garantiu seu brinde do MooveOn!<br><br>
+      🎁 <strong>Cupom:</strong> MOOVEON10<br><br>
+      Fica de olho no seu e-mail 👀`, "bot");
+
+      mooveonFlow.ativo = false;
+      mooveonFlow.step = null;
+      mooveonFlow.nome = null;
+
+      return;
+    }
+  }
+
+  // ================= FLUXO NORMAL (IA) =================
+  sendToN8N(text);
 }
 
-// NOVA FUNÇÃO: Permite enviar a mensagem apertando a tecla Enter
+// Enter para enviar
 function enviarComEnter(event) {
-  // Se apertar Enter E não estiver segurando o Shift
   if (event.key === "Enter" && !event.shiftKey) {
-    event.preventDefault(); // Trava a quebra de linha
-    sendMessage(); // Envia a mensagem
+    event.preventDefault();
+    sendMessage();
   }
 }
 
 // Botões rápidos
 function sendQuick(text) {
   addMessage(text, "user");
-  sendToN8N(text); // 👈 aqui
+
+  // ================= ATIVAR MOOVEON =================
+  if (text === "MooveOn - 2026") {
+    mooveonFlow.ativo = true;
+    mooveonFlow.step = "nome";
+    mooveonFlow.nome = null;
+
+    addMessage(`🚀 Você chegou pelo <strong>MooveOn</strong>!<br><br>
+    Vou te liberar um brinde exclusivo 🎁<br><br>
+    Me diz seu nome:`, "bot");
+
+    return;
+  }
+
+  sendToN8N(text);
 }
 
-// Adicionar mensagem no chat
+// Adicionar mensagem
 function addMessage(text, type) {
   const chatBody = document.getElementById("chatBody");
 
@@ -464,32 +538,28 @@ function addMessage(text, type) {
   msg.classList.add("message", type);
   
   if (type === "bot") {
-  msg.innerHTML = text;
-} else {
-  msg.textContent = text;
-}
+    msg.innerHTML = text;
+  } else {
+    msg.textContent = text;
+  }
 
   chatBody.appendChild(msg);
-
-  // Scroll automático
   chatBody.scrollTop = chatBody.scrollHeight;
 }
 
-/* ================= MOSTRAR BOTÃO APÓS HERO ================= */
+/* ================= SCROLL ================= */
 window.addEventListener("DOMContentLoaded", () => {
   const chatToggle = document.getElementById("chatToggle");
   const hero = document.getElementById("hero");
-  const chat = document.getElementById("chat"); // Referência do chat
+  const chat = document.getElementById("chat");
 
   if (!chatToggle || !hero) return;
 
-  // Começa escondido
   chatToggle.style.display = "none";
 
   window.addEventListener("scroll", () => {
     const heroHeight = hero.offsetHeight;
 
-    // Só mostra o botão do avatar se passar da Hero E o chat estiver fechado
     if (window.scrollY > heroHeight - 100 && chat.style.display !== "flex") {
       chatToggle.style.display = "flex";
     } else {
@@ -498,64 +568,60 @@ window.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-/* ================= MENU DE OPÇÕES (TRÊS PONTINHOS) ================= */
+/* ================= MENU ================= */
 
-// Abre e fecha o menu
 function toggleMenu() {
   const menu = document.getElementById("chatMenu");
   menu.classList.toggle("show");
 }
 
-// Fechar o menu automaticamente se o usuário clicar fora dele
 document.addEventListener("click", function(event) {
   const menu = document.getElementById("chatMenu");
   const actions = document.querySelector(".chat-header-actions");
   
-  // Se o menu estiver aberto e o clique não foi nos três pontinhos...
   if (menu && menu.classList.contains("show") && !actions.contains(event.target)) {
     menu.classList.remove("show");
   }
 });
 
-// Ação de clicar no botão "Início"
+// Reset chat
 function restartChat() {
-  // 1. Esconde o menu
   document.getElementById("chatMenu").classList.remove("show");
-  
-  // 2. Manda a mensagem "Início" como se fosse o usuário
+
+  // resetar fluxo MooveOn também
+  mooveonFlow.ativo = false;
+  mooveonFlow.step = null;
+  mooveonFlow.nome = null;
+
   addMessage("Início", "user");
   
-  // 3. O Bot responde com a mensagem principal e os botões
   setTimeout(() => {
-    // Adiciona o texto de boas-vindas
     const msgInicial = `Olá! Eu sou o <strong>Virgulinha</strong>, assistente da <strong>Agência Vírgula.</strong> 👋<br><br>Estou aqui para te informar sobre dúvidas, serviços e muito mais!<br><br>Como posso te ajudar hoje? 😊`;
     addMessage(msgInicial, "bot");
 
-    // 4. Recria e adiciona os botões amarelos de atalho
     const chatBody = document.getElementById("chatBody");
     const botoesDiv = document.createElement("div");
     botoesDiv.classList.add("quick-actions");
     botoesDiv.innerHTML = `
+      <button onclick="sendQuick('MooveOn - 2026')">MooveOn - 2026</button>
       <button onclick="sendQuick('Serviços')">Serviços</button>
       <button onclick="sendQuick('Orçamento')">Orçamento</button>
       <button onclick="sendQuick('Contato')">Contato</button>
     `;
     
     chatBody.appendChild(botoesDiv);
-    
-    // Desce o scroll para garantir que os botões apareçam na tela
-    chatBody.scrollTop = chatBody.scrollHeight; 
+    chatBody.scrollTop = chatBody.scrollHeight;
 
   }, 600);
 }
 
+// Loading
 let loadingMsg = null;
 
 function showLoading() {
   loadingMsg = document.createElement("div");
   loadingMsg.classList.add("message", "bot");
   loadingMsg.innerHTML = "Digitando...";
-  
   document.getElementById("chatBody").appendChild(loadingMsg);
 }
 
@@ -566,7 +632,7 @@ function removeLoading() {
   }
 }
 
-// ================= SESSION FIX =================
+// Session
 let sessionId = localStorage.getItem("chatUserId");
 
 if (!sessionId) {
@@ -574,14 +640,10 @@ if (!sessionId) {
   localStorage.setItem("chatUserId", sessionId);
 }
 
-console.log("SESSION ID:", sessionId);
-
-/* ================= CHATBOT - N8N ================= */
+/* ================= N8N IA ================= */
 
 async function sendToN8N(message) {
   showLoading();
-
-  const startTime = Date.now();
 
   try {
     const response = await fetch("https://primary-production-714c.up.railway.app/webhook/chat-virgulinha", {
@@ -591,46 +653,24 @@ async function sendToN8N(message) {
       },
       body: JSON.stringify({
         message: message,
-        userAgent: navigator.userAgent,
-        url: window.location.href,
-        sessionId: sessionId // ✅ agora fixo
+        sessionId: sessionId
       })
     });
 
     const raw = await response.text();
-    console.log("RESPOSTA BRUTA:", raw);
-
-    if (!response.ok) {
-      throw new Error(`N8N HTTP ${response.status}: ${raw}`);
-    }
 
     let data = null;
     try {
       data = JSON.parse(raw);
-    } catch (_) {
-      data = null;
-    }
+    } catch (_) {}
 
-    const textFromData =
-      (data && typeof data === "object" && (data.reply || data.message || data.text || data.output)) || null;
-
-    const botMessageRaw = typeof textFromData === "string" ? textFromData : raw;
-
-    const botMessage = /<\/?[a-z][\s\S]*>/i.test(botMessageRaw)
-      ? botMessageRaw
-      : botMessageRaw.replace(/\n/g, "<br>");
-
-    const endTime = Date.now();
-    const responseTime = endTime - startTime;
-
-    console.log("Tempo de resposta (ms):", responseTime);
+    const botMessage = (data?.reply || raw).replace(/\n/g, "<br>");
 
     removeLoading();
     addMessage(botMessage, "bot");
 
   } catch (error) {
-    console.error(error);
     removeLoading();
-    addMessage("Erro ao conectar com o assistente 😢", "bot");
+    addMessage("Erro ao conectar 😢", "bot");
   }
 }
