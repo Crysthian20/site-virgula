@@ -1760,7 +1760,11 @@ p {
 }
 
 .chat-toggle:hover img {
-  transform: scale(1.1);
+  transform: scale(1.05) 
+}
+
+.chat-toggle:hover .toggle-bubble {
+  transform: scale(1.05)  
 }
 
 .chat-container {
@@ -1791,6 +1795,37 @@ p {
   align-items: center;
   padding: 0 15px;
   color: white;
+}
+
+/* ================= BALÃOZINHO DO BOTÃO FLUTUANTE ================= */
+.toggle-bubble {
+  position: absolute;
+  right: 120px; 
+  top: -3px; 
+  
+  /* NOVO: Garante que o balãozinho fique sempre na frente da imagem */
+  z-index: 10; 
+  
+  background: #ffffff;
+  color: #1a1a3a; 
+  padding: 8px 14px; 
+  
+  border-radius: 20px;
+  border-bottom-right-radius: 4px; 
+  
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12); 
+  font-size: 12px; 
+  text-align: center;
+  line-height: 1.3; 
+  white-space: nowrap; 
+  
+  transition: transform 0.2s ease;
+  transform-origin: right bottom; 
+}
+
+.toggle-bubble strong {
+  font-weight: 800;
+  color: #1e1e50; 
 }
 
 /* ================= BOTÃO DE MINIMIZAR (IMAGEM) ================= */
