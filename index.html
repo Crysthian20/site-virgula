@@ -690,9 +690,18 @@
 
   <!-- Input -->
   <div class="chat-footer">
-    <textarea id="userInput" placeholder="Digite uma mensagem..." onkeypress="enviarComEnter(event)" rows="1"></textarea>
-    <button onclick="sendMessage()">➤</button>
-  </div>
+
+  <div id="inputLabel" class="input-label" style="display: none;"></div>
+
+  <textarea 
+    id="userInput" 
+    placeholder="Digite uma mensagem..." 
+    onkeypress="enviarComEnter(event)" 
+    rows="1">
+  </textarea>
+
+  <button onclick="sendMessage()">➤</button>
+</div>
 
 <div class="powered-by">
     Produced by Vírgula

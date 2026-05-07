@@ -2058,6 +2058,18 @@ p {
 
 }
 
+.input-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+
+  margin-bottom: 9px; /* aproxima do input */
+  margin-top: -4px;   /* sobe o label */
+
+  padding-left: -1px;
+  padding-right: 6px; /* espaço à direita */
+}
+
 /* ================= ASSINATURA ================= */
 .powered-by {
   text-align: center;

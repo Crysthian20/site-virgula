@@ -434,6 +434,32 @@ let mooveonFlow = {
   nome: null
 };
 
+// ================= INPUT LABEL =================
+
+function setInputMode(label, placeholder = "") {
+  const inputLabel = document.getElementById("inputLabel");
+  const input = document.getElementById("userInput");
+
+  inputLabel.style.display = "block";
+  inputLabel.innerHTML = label;
+
+  input.value = ""; // limpa espaços/textos antigos
+  input.placeholder = placeholder;
+
+  input.focus(); // já deixa pronto pra digitar
+}
+
+function resetInputMode() {
+  const inputLabel = document.getElementById("inputLabel");
+  const input = document.getElementById("userInput");
+
+  inputLabel.style.display = "none";
+  inputLabel.innerHTML = "";
+
+  input.placeholder = "Digite uma mensagem...";
+}
+
+
 // Enviar mensagem digitada
 function sendMessage() {
   const input = document.getElementById("userInput");
@@ -453,12 +479,14 @@ function sendMessage() {
       mooveonFlow.nome = null;
 
       addMessage("Você saiu da experiência do MooveOn 🙂", "bot");
+      resetInputMode();
       return;
     }
 
     if (mooveonFlow.step === "nome") {
       mooveonFlow.nome = text;
       mooveonFlow.step = "email";
+      setInputMode("📧 E-mail:", "Digite seu melhor e-mail...");
 
       addMessage(`Boa, ${text}! 😄<br><br>Agora me manda seu melhor e-mail pra liberar seu brinde 🎁`, "bot");
       return;
@@ -494,6 +522,8 @@ function sendMessage() {
       mooveonFlow.step = null;
       mooveonFlow.nome = null;
 
+      resetInputMode();
+
       return;
     }
   }
@@ -523,6 +553,8 @@ function sendQuick(text) {
     addMessage(`🚀 Você chegou pelo <strong>MooveOn</strong>!<br><br>
     Vou te liberar um brinde exclusivo 🎁<br><br>
     Me diz seu nome:`, "bot");
+
+   setInputMode("👤 Nome:", "Digite seu nome...");
 
     return;
   }
@@ -592,6 +624,7 @@ function restartChat() {
   mooveonFlow.ativo = false;
   mooveonFlow.step = null;
   mooveonFlow.nome = null;
+  resetInputMode();
 
   addMessage("Início", "user");
   
