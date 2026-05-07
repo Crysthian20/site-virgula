@@ -568,9 +568,16 @@ function addMessage(text, type) {
 
   const msg = document.createElement("div");
   msg.classList.add("message", type);
-  
+
   if (type === "bot") {
-    msg.innerHTML = text;
+
+    // limpa espaços e identações do template string
+    const cleanText = text
+      .replace(/\n\s+/g, "\n")
+      .trim();
+
+    msg.innerHTML = cleanText;
+
   } else {
     msg.textContent = text;
   }
@@ -697,7 +704,11 @@ async function sendToN8N(message) {
       data = JSON.parse(raw);
     } catch (_) {}
 
-    const botMessage = (data?.reply || raw).replace(/\n/g, "<br>");
+    const rawMessage = data?.reply || raw;
+
+const botMessage = rawMessage.includes("<br>")
+  ? rawMessage
+  : rawMessage.replace(/\n/g, "<br>");
 
     removeLoading();
     addMessage(botMessage, "bot");

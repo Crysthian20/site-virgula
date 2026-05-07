@@ -1807,7 +1807,7 @@ p {
   z-index: 10; 
   
   background: #ffffff;
-  color: #1a1a3a; 
+  color: #000000; 
   padding: 8px 14px; 
   
   border-radius: 20px;
@@ -1825,7 +1825,7 @@ p {
 
 .toggle-bubble strong {
   font-weight: 800;
-  color: #1e1e50; 
+  color: #000000; 
 }
 
 /* ================= BOTÃO DE MINIMIZAR (IMAGEM) ================= */
@@ -1978,6 +1978,7 @@ p {
   background: #ffffff;
   border: 1px solid #cccccc; /* Adiciona a borda cinza clara */
   margin-top: 25px;
+  line-height: 1.5;
 }
 
 /* Cria o nome "Virgulinha:" em cima das mensagens do bot */
