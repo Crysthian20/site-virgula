@@ -488,7 +488,7 @@ function sendMessage() {
       mooveonFlow.step = "email";
       setInputMode("📧 E-mail:", "Digite seu melhor e-mail...");
 
-      addMessage(`Boa, ${text}! 😄<br><br>Agora me manda seu melhor e-mail pra liberar seu brinde 🎁`, "bot");
+      addMessage(`Boa, ${text}! 😄<br><br>Agora me manda seu melhor e-mail pra eu liberar seu giro! 🔥`, "bot");
       return;
     }
 
@@ -513,10 +513,9 @@ function sendMessage() {
         })
       });
 
-      addMessage(`Perfeito! 🎉<br><br>
-      Você garantiu seu brinde do MooveOn!<br><br>
-      🎁 <strong>Cupom:</strong> MOOVEON10<br><br>
-      Fica de olho no seu e-mail 👀`, "bot");
+      addMessage(`Perfeito! Seu giro na <strong>Roleta da Vírgula</strong> já está liberado. 🎉<br><br>
+      Agora é só ir até o nosso stand e testar a sorte! <br><br>
+      Obrigado por participar! 😊`, "bot");
 
       mooveonFlow.ativo = false;
       mooveonFlow.step = null;
@@ -550,9 +549,9 @@ function sendQuick(text) {
     mooveonFlow.step = "nome";
     mooveonFlow.nome = null;
 
-    addMessage(`🚀 Você chegou pelo <strong>MooveOn</strong>!<br><br>
-    Vou te liberar um brinde exclusivo 🎁<br><br>
-    Me diz seu nome:`, "bot");
+    addMessage(`Opa! Você chegou pelo <strong>MooveOn</strong>! 🚀<br><br>
+    E isso significa uma coisa: seu giro na <strong>roleta da Vírgula</strong> tá quase liberado. 👀<br><br>Mas antes, preciso de duas coisinhas rapidinho.<br><br>
+    Qual é o seu nome?`, "bot");
 
    setInputMode("👤 Nome:", "Digite seu nome...");
 
